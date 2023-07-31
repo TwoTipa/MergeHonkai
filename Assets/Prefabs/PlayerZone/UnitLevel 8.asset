@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af07c27485e74d5aacf6009f81067adf, type: 3}
+  m_Name: UnitLevel 8
+  m_EditorClassIdentifier: 
+  sprite: {fileID: 303573243, guid: 92c1060dc4fd86740975be0e36e3b545, type: 3}
+  spleshArt: {fileID: 21300000, guid: 68e1a817338d3d34bbc58aba03a70450, type: 3}
+  name: "\u0426\u0437\u0438\u043D\u044C \u042E\u0430\u043D\u044C"
+  dmg: 1280
+  hp: 0
+  atackCount: 4
+  fireRate: 1
