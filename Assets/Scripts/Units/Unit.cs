@@ -1,5 +1,6 @@
 ﻿using System;
 using Enemyes;
+using Fight;
 using Sound;
 using TMPro;
 using UniRx;
@@ -120,7 +121,22 @@ namespace Units
                 }
             }).AddTo(attackAnim);
         }
-        
+
+        private void OnEnable()
+        {
+            FightSystem.EndLevel += FightSystemOnEndLevel;
+        }
+
+        private void OnDisable()
+        {
+            FightSystem.EndLevel -= FightSystemOnEndLevel;
+        }
+
+        private void FightSystemOnEndLevel(bool obj)
+        {
+            SetSetting(Level);
+        }
+
         private void Start()
         {
             SetSetting(Level);

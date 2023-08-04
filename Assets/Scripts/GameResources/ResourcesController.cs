@@ -32,7 +32,7 @@ namespace GameResources
 
         private void Update()
         {
-            ButtonController();
+            //ButtonController();
         }
 
         private void ButtonController()
