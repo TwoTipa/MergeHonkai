@@ -7,6 +7,8 @@ namespace Sound
 {
     public class SoundController : MonoBehaviour, IService
     {
+        [SerializeField] private GameObject musicIcon;
+        [SerializeField] private GameObject musicIconOff;
         [SerializeField] private float masterVolume;
         [SerializeField] private float musicVolume;
         [SerializeField] private AudioSource sound;
@@ -22,7 +24,7 @@ namespace Sound
         {
             Instance = this;
         }
-
+        
         public void PlayClip(AudioClip clip)
         {
             sound.PlayOneShot(clip, masterVolume);
@@ -35,32 +37,18 @@ namespace Sound
 
         public void SwitchSound(bool volume)
         {
-            if (soundOn)
-            {
-                masterVolume = 0f;
-                soundOn = false;
-            }
-            else
-            {
-                masterVolume = 1f;
-                soundOn = true;
-            }
+            musicIcon.SetActive(volume);
+            musicIconOff.SetActive(!volume);
+            masterVolume = volume ? 0.4f : 0;
+            music.volume = masterVolume;
+            soundOn = volume;
         }
 
         public void SwitchMusic(bool volume)
         {
-            if (musicOn)
-            {
-                musicVolume = 0f;
-                music.volume = 0f;
-                musicOn = false;
-            }
-            else
-            {
-                musicVolume = 0.4f;
-                music.volume = 0.4f;
-                musicOn = true;
-            }
+            masterVolume = volume ? 0.4f : 0;
+            music.volume = masterVolume;
+            soundOn = volume;
         }
         
         public void ChangeMusicVolume(float volume)
@@ -72,7 +60,7 @@ namespace Sound
         {
             music.loop = true;
             music.clip = fonMusic;
-            music.volume = musicVolume;
+            music.volume = masterVolume;
             music.Play();
         }
     }

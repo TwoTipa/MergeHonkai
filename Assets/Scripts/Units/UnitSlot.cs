@@ -21,14 +21,33 @@ namespace Units
                 return;
             }
             unit.SetParent(transform);
+            
+            
+            SaveUnit();
         }
 
         private void OnDestroy()
         {
-            var unit = GetComponentInChildren<Unit>();
-            if (unit != null)
+            // var unit = GetComponentInChildren<Unit>();
+            // if (unit != null)
+            // {
+            //     SaveUnitM(unit);
+            // }
+        }
+
+        private void OnApplicationQuit()
+        {
+            SaveUnit();
+        }
+
+        private float timer = 0f;
+        private void Update()
+        {
+            timer += Time.deltaTime;
+            if (timer >= 1f)
             {
-                SaveUnit(unit);
+                timer = 0f;
+                SaveUnit();
             }
         }
 
@@ -43,9 +62,14 @@ namespace Units
             }
         }
 
-        private void SaveUnit(Unit unit)
+        private void SaveUnit()
         {
-            Debug.Log("Сохраняю");
+            var unit = GetComponentInChildren<Unit>();
+            if (unit == null)
+            {
+                PlayerPrefs.SetInt(transform.name + "Unit", -1);
+                return;
+            }
             PlayerPrefs.SetInt(transform.name + "Unit", unit.Level);
             PlayerPrefs.Save();
         }
@@ -66,6 +90,8 @@ namespace Units
             }
             
             inSlotUnit.Upgrade(dragUnit);
+            
+            SaveUnit();
         }
     }
 }

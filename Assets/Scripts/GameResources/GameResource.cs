@@ -32,6 +32,7 @@ namespace GameResources
                 Count.Value = 0;
             }
             Save();
+            Debug.Log("Сохранил монетки");
         }
 
         public virtual void Add(int value)

@@ -10,6 +10,7 @@ namespace Units
     public class UnitBuySystem : MonoBehaviour, IService
     {
         [SerializeField] private Unit unitForBuy;
+        [SerializeField] private GameObject rewardWin;
         public MyReactiveProperty<int> Price { get; private set; } = new MyReactiveProperty<int>(0);
         private UnitSlot[] slots;
 
@@ -34,12 +35,14 @@ namespace Units
             var money = locator.Get<ResourcesController>().Resources["Money"];
             if (!money.TrySpend(Price.Value))
             {
-                locator.Get<Ad>().ShowAd();
-                money.Add(Price.Value);
+                //locator.Get<Ad>().ShowAd(Price.Value);
+                rewardWin.SetActive(true);
                 return;
             }
             Price.Value += 10;
             PlayerPrefs.SetInt("Price", Price.Value);
+            PlayerPrefs.Save();
+            PlayerPrefs.SetInt(slot.transform.name + "Unit", unitForBuy.Level);
             PlayerPrefs.Save();
             count++;
             Instantiate(unitForBuy, slot.transform).name = "Unit"+count;
@@ -50,6 +53,7 @@ namespace Units
             foreach (var slot in slots)
             {
                 if (slot.transform.childCount > 0) continue;
+                
                 return slot;
             }
 

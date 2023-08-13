@@ -1,4 +1,5 @@
 ﻿using System;
+using GameResources;
 using ServiceLocator;
 using UnityEngine;
 using YG;
@@ -9,7 +10,7 @@ namespace Ads
     {
         [SerializeField] private YandexGame yandexSDK;
 
-        public void ShowAd()
+        public void ShowAd(int money)
         {
             yandexSDK._RewardedShow(0);
         }
@@ -17,6 +18,16 @@ namespace Ads
         public void ShowFullScreen()
         {
             yandexSDK._FullscreenShow();
+        }
+
+        private void OnEnable()
+        {
+            yandexSDK.CloseVideoAd.AddListener(onAdClose);
+        }
+
+        private void onAdClose()
+        {
+            ServiceLocator.ServiceLocator.Current.Get<ResourcesController>().Resources["Money"].Add(1000);
         }
     }
 }
